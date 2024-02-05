@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function ResetPass() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
@@ -12,7 +11,7 @@ export default function ResetPass() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if(password !== confirmpassword){
-      alert("password & confirm password should be the same")
+      alert("password & confirm password should be the same");
       return;
     }
     console.log(
