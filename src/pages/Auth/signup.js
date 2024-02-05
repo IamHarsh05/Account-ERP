@@ -2,21 +2,18 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Signup() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      email,
-      password,
-      confirmpassword
-    )
-  }
-
+    if (password !== confirmpassword) {
+      alert("password & confirm password should be the same");
+      return;
+    }
+    console.log(email, password, confirmpassword);
+  };
 
   return (
     <div className="flex flex-col bg-stone-100 h-full sm:flex-col md:flex-row lg:flex-row md:h-screen overflow-y-auto">
@@ -88,7 +85,12 @@ export default function Signup() {
         </div>
         <div className="flex my-8 flex-0 justify-center mx-2 md:flex-1">
           <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
+            <form
+              className="space-y-6"
+              action="#"
+              method="POST"
+              onSubmit={handleSubmit}
+            >
               <div>
                 <label
                   htmlFor="email"
