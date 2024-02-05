@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Signup() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(
+      email,
+      password,
+      confirmpassword
+    )
+  }
+
+
   return (
     <div className="flex flex-col bg-stone-100 h-full sm:flex-col md:flex-row lg:flex-row md:h-screen overflow-y-auto">
       <div className="flex w-full h-full bg-blue-700 relative md:w-6/12 overflow-hidden">
@@ -72,7 +88,7 @@ export default function Signup() {
         </div>
         <div className="flex my-8 flex-0 justify-center mx-2 md:flex-1">
           <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
@@ -85,6 +101,8 @@ export default function Signup() {
                     id="email"
                     name="email"
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     autoComplete="email"
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -106,6 +124,8 @@ export default function Signup() {
                     id="password"
                     name="password"
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     autoComplete="current-password"
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -116,7 +136,7 @@ export default function Signup() {
               <div>
                 <div className="flex items-center justify-between">
                   <label
-                    htmlFor="password"
+                    htmlFor="confirmpassword"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Confirm Password
@@ -125,9 +145,11 @@ export default function Signup() {
                 <div className="mt-2">
                   <input
                     id="password"
-                    name="password"
+                    name="confirmpassword"
                     type="password"
                     autoComplete="current-password"
+                    value={confirmpassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
