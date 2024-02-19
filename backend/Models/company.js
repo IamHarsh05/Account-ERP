@@ -19,12 +19,12 @@ const companySchema = new Schema({
   paidCapital: {
     type: Number,
     required: true,
-    min: 0, // ensures the value is not negative
+    min:[0, 'wrong min paid Capital'], // ensures the value is not negative
   },
   authCapital: {
     type: Number,
     required: true,
-    min: 0,
+    min:[0, 'wrong min authorized Capital'],
   },
   reservedName: {
     type: Boolean,
