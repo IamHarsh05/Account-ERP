@@ -10,6 +10,7 @@ import CompanyDetailRegistration from "./pages/Forms/companyDetails";
 import QuotationPage from "./pages/Forms/qutation";
 import Navbar from "./pages/Navbar/navbar";
 import Home from "./pages/Dashboard/home";
+import ComapnyRegSheet from "./pages/Sheets/comapnyReg";
 
 function App() {
   return (
@@ -37,7 +38,10 @@ function App() {
                 <div className="fixed top-0 left-0 right-0 w-screen z-50">
                   <Navbar />
                 </div>
-                <CompanyReg />
+                <div className="flex flex-col justify-center">
+                  <CompanyReg />
+                  <ComapnyRegSheet />
+                </div>
               </>
             }
           />

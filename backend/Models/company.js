@@ -35,7 +35,7 @@ const companySchema = new Schema({
     required: true,
   },
   addressProof: { // corrected typo from addressProff to addressProof
-    type: String,
+    type: Object,
     required: true,
   },
   // Add more fields as needed

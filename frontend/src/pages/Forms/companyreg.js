@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import axios from "axios";
 
 export default function CompanyReg() {
   const [companyName, setCompanyName] = useState("");
@@ -10,9 +11,49 @@ export default function CompanyReg() {
   const [registerAddress, setRegisterAddress] = useState("");
   const [addressProof, setAddressProof] = useState(null);
 
+  const fileInputRef = useRef(null);
+
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+
+    const fileToBase64 = (file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = () => {
+          resolve(reader.result.split(",")[1]);
+        };
+
+        reader.onerror = (error) => {
+          reject(error);
+        };
+
+        reader.readAsDataURL(file);
+      });
+    };
+
+    if (file) {
+      fileToBase64(file)
+        .then((base64String) => {
+          setAddressProof({
+            addressProofFile: {
+              name: file.name,
+              data: base64String,
+              contentType: file.type,
+            },
+          });
+        })
+        .catch((error) => {
+          console.error("Error converting file to base64:", error);
+        });
+    }
+  };
+
+  console.log(addressProof);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validation
@@ -60,15 +101,35 @@ export default function CompanyReg() {
 
     // Continue with form submission
     console.log({
-      companyName,
-      companyType,
+      name: companyName,
+      type: companyType,
       purpose,
       paidCapital,
-      authorizedCapital,
-      reserveName,
+      authCapital: authorizedCapital,
+      reservedName: reserveName,
       registerAddress,
       addressProof,
     });
+
+    try {
+      // Make a POST request to your backend API
+      const response = await axios.post("http://localhost:8000/api/companies", {
+        name: companyName,
+        type: companyType,
+        purpose,
+        paidCapital,
+        authCapital: authorizedCapital,
+        reservedName: reserveName,
+        registerAddress,
+        addressProof,
+      });
+      console.log("Company created:", response.data);
+      Reset();
+      // Handle success or redirect to another page
+    } catch (error) {
+      console.error("Error creating company:", error.message);
+      // Handle error
+    }
   };
 
   const Reset = () => {
@@ -80,6 +141,12 @@ export default function CompanyReg() {
     setReserveName(false);
     setRegisterAddress("");
     setAddressProof(null);
+
+    // Reset the form directly
+    if (fileInputRef.current) {
+      fileInputRef.current.reset();
+    }
+
     setErrors({});
   };
 
@@ -89,6 +156,7 @@ export default function CompanyReg() {
         <p className="text-4xl font-extrabold">Company Registration Form</p>
       </div>
       <form
+        ref={fileInputRef}
         onSubmit={handleSubmit}
         className="max-w-fit mx-auto bg-white p-6 rounded-md shadow-md"
       >
@@ -165,7 +233,7 @@ export default function CompanyReg() {
           <span className="text-gray-700">Upload Address Proof:</span>
           <input
             type="file"
-            onChange={(e) => setAddressProof(e.target.files[0])}
+            onChange={handleFileChange}
             className="mt-1 p-2 w-full border rounded-md"
           />
         </label>
