@@ -209,7 +209,7 @@ export default function CompanyReg() {
           />
         </label>
 
-        <label className="block mb-4 flex">
+        <label className="mb-4 flex">
           <span className="text-gray-700">Reserved Your Name:</span>
           <input
             type="checkbox"
@@ -229,7 +229,7 @@ export default function CompanyReg() {
           />
         </label>
 
-        <label className="block mb-4 flex">
+        <label className="mb-4 flex">
           <span className="text-gray-700">Upload Address Proof:</span>
           <input
             type="file"
