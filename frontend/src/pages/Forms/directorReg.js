@@ -116,6 +116,7 @@ export default function DirectorReg() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="mt-1 p-2 w-full border rounded-md"
+            autoFocus
           />
         </label>
 

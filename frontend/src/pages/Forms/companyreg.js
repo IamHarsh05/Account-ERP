@@ -158,7 +158,7 @@ export default function CompanyReg() {
       <form
         ref={fileInputRef}
         onSubmit={handleSubmit}
-        className="max-w-fit mx-auto bg-white p-6 rounded-md shadow-md"
+        className="max-w-fit mx-auto bg-blue-100 p-6 rounded-md shadow-md"
       >
         <label className="block mb-4">
           <span className="text-gray-700">Name of the Company:</span>
@@ -167,6 +167,7 @@ export default function CompanyReg() {
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
             className="mt-1 p-2 w-full border rounded-md"
+            autoFocus
           />
         </label>
 

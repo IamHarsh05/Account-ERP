@@ -5,7 +5,7 @@ require("dotenv").config();
 const companyRoutes = require("./Routes/companyRoutes");
 
 const port = process.env.PORT;
-
+  
 // Use the cors middleware to enable CORS
 app.use(cors());
 

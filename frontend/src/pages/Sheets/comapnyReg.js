@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "smart-webcomponents-react/source/styles/smart.default.css";
-import { Grid } from "smart-webcomponents-react/grid";
+// import { Grid } from "smart-webcomponents-react/grid";
 
 export default function ComapnyRegSheet() {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState([]);
-  const [error, setError] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const [search, setSearch] = useState("");
 
   // Function to fetch all items from the server
   function getAllUser() {
     setLoading(true);
-    fetch(`http://localhost:8000/api/companies`, {
+    fetch(`http://localhost:8000/api/companies?companyName=${search}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
@@ -21,6 +23,7 @@ export default function ComapnyRegSheet() {
         setError(false);
       })
       .catch((err) => {
+        setData([]);
         setError(err);
         setLoading(false);
       });
@@ -61,7 +64,7 @@ export default function ComapnyRegSheet() {
   //UseEffect Hook to Fetch items on component mount
   useEffect(() => {
     getAllUser();
-  }, []);
+  }, [search]);
 
   const columns = [
     {
@@ -98,63 +101,15 @@ export default function ComapnyRegSheet() {
     },
   ];
 
-  const behavior = {
-    columnResizeMode: "growAndShrink",
-  };
-
-  const appearance = {
-    alternationCount: 2,
-    showRowHeader: true,
-    showRowHeaderSelectIcon: true,
-    showRowHeaderFocusIcon: true,
-  };
-
-  const paging = {
-    enabled: true,
-  };
-
-  const pager = {
-    visible: true,
-  };
-
-  const sorting = {
-    enabled: true,
-  };
-
-  const editing = {
-    enabled: true,
-  };
-
-  const filtering = {
-    enabled: true,
-  };
-
-  const selection = {
-    enabled: true,
-  };
-
-  const grouping = {
-    enabled: true,
-  };
-
   return (
-    <div className="flex w-screen p-4 flex-col justify-center">
-      {/* {data.map((comapany, index) => (
-        <div key={index}>
-          <p>{comapany.name}</p>
-          <button onClick={() => downloadFile(comapany.addressProof)}>
-            Download File
-          </button>
-        </div>
-      ))} */}
-
+    <div className="absolute w-full flex px-4 py-16 flex-col justify-center">
       <div className="relative shadow-md sm:rounded-lg">
         <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
           <div>
             <button
               id="dropdownRadioButton"
               data-dropdown-toggle="dropdownRadio"
-              className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+              className="inline-flex items-center text-gray-500 border border-gray-300 focus:outline-none  focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
               type="button"
             >
               <svg
@@ -186,10 +141,7 @@ export default function ComapnyRegSheet() {
             {/* <!-- Dropdown menu --> */}
             <div
               id="dropdownRadio"
-              className="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-              data-popper-reference-hidden=""
-              data-popper-escaped=""
-              data-popper-placement="top"
+              className="z-10 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
               style={{
                 position: "absolute",
                 inset: "auto auto 0px 0px",
@@ -314,6 +266,7 @@ export default function ComapnyRegSheet() {
               id="table-search"
               className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search htmlFor items"
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
         </div>
@@ -333,33 +286,76 @@ export default function ComapnyRegSheet() {
                   </label>
                 </div>
               </th>
-              <th scope="col" className="px-6 py-3">
-                Company Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Company Type
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Purpose
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Paid Capital
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Authorized Capital
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Name Reserved ?
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Register Address
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Address Prood Download
-              </th>
+              {columns.map((column) => (
+                <th scope="col" className="px-6 py-3">
+                  {column.label}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
+            {loading || error ? (
+              <>
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <td className="w-4 p-4">
+                    <div className="flex items-center">
+                      <input
+                        id="checkbox-table-search-1"
+                        type="checkbox"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                      <label
+                        htmlFor="checkbox-table-search-1"
+                        className="sr-only"
+                      ></label>
+                    </div>
+                  </td>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  ></th>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4">
+                    <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline"></button>
+                  </td>
+                </tr>
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <td className="w-4 p-4">
+                    <div className="flex items-center">
+                      <input
+                        id="checkbox-table-search-1"
+                        type="checkbox"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                      <label
+                        htmlFor="checkbox-table-search-1"
+                        className="sr-only"
+                      ></label>
+                    </div>
+                  </td>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  ></th>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4">
+                    <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline"></button>
+                  </td>
+                </tr>
+              </>
+            ) : (
+              ""
+            )}
             {data.map((comapany, index) => (
               <tr
                 key={index}
@@ -390,7 +386,9 @@ export default function ComapnyRegSheet() {
                 <td className="px-6 py-4">{comapany.purpose}</td>
                 <td className="px-6 py-4">$ {comapany.paidCapital}</td>
                 <td className="px-6 py-4">$ {comapany.authCapital}</td>
-                <td className="px-6 py-4">{comapany.reservedName ? "Reserved" : "Not Reserved"}</td>
+                <td className="px-6 py-4">
+                  {comapany.reservedName ? "Reserved" : "Not Reserved"}
+                </td>
                 <td className="px-6 py-4">{comapany.registerAddress}</td>
                 <td className="px-6 py-4">
                   <button

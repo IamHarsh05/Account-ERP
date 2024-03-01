@@ -226,6 +226,7 @@ export default function CompanyDetailRegistration() {
               value={purposeName}
               onChange={(e) => setPurposeName(e.target.value)}
               className="mt-1 p-2 w-full border rounded-md"
+              autoFocus
             />
           </label>
 
