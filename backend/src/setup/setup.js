@@ -5,7 +5,7 @@ const fs = require('fs');
 const { generate: uniqueId } = require('shortid');
 
 const mongoose = require('mongoose');
-mongoose.connect(process.env.DATABASE);
+mongoose.connect(process.DATABASE);
 
 async function setupApp() {
   try {

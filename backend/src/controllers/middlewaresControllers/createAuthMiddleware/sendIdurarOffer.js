@@ -19,7 +19,7 @@ const senderpOffer = async ({ email, name }) => {
 
   // Define mail options
   let mailOptions = {
-    from: 'hello@erpapp.com',
+    from: process.env.NodeMailer_MAIL,
     to: email,
     subject: 'Customize erp ERP CRM or build your own SaaS',
     html: afterRegistrationSuccess({ name }),
