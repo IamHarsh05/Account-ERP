@@ -50,14 +50,13 @@
   },
   "main": "server.js",
   "author": "erp",
-  "email": "hello@erpapp.com",
-  "license": "Fair-code License",
+  "email": "harshy050902@gmail.com",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/erp/erp-erp-crm/.git"
+    "url": "git+https://github.com/IamHarsh05/Account-ERP"
   },
   "bugs": {
-    "url": "https://github.com/erp/erp-erp-crm//issues"
+    "url": "https://github.com/IamHarsh05/Account-ERP//issues"
   },
-  "homepage": "https://github.com/erp/erp-erp-crm/#readme"
+  "homepage": "https://github.com/IamHarsh05/Account-ERP/#readme"
 }

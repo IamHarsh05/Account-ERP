@@ -101,7 +101,3 @@ export const logout = async () => {
     return errorHandler(error);
   }
 };
-
-//  console.log(
-//    '🚀 Welcome to erp ERP CRM! Did you know that we also offer commercial customization services? Contact us at hello@erpapp.com for more information.'
-//  );
