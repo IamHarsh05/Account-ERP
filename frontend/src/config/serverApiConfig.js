@@ -5,7 +5,7 @@ export const API_BASE_URL =
 export const BASE_URL =
   import.meta.env.PROD || import.meta.env.VITE_DEV_REMOTE
     ? import.meta.env.VITE_BACKEND_SERVER
-    : 'https://account-erp.onrender.com/';
+    : 'https://account-erp.onrender.com';
 
 export const WEBSITE_URL = import.meta.env.PROD
   ? 'https://account-erp.vercel.app/'
