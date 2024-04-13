@@ -19,7 +19,7 @@ const fileUpload = require('express-fileupload');
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:3001',
+    origin: '*',
     methods: ['GET', 'HEAD', 'OPTIONS', 'POST', 'PUT'],
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
     credentials: true
