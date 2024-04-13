@@ -129,6 +129,6 @@ const offerSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-
+ 
 offerSchema.plugin(require('mongoose-autopopulate'));
 module.exports = mongoose.model('Offer', offerSchema);

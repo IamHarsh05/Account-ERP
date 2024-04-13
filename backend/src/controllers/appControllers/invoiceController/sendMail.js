@@ -82,7 +82,7 @@ const sendMail = async ({ email, name, targetLocation }) => {
     port: 465,
     secure: true,
     auth: {
-      user: process.NodeMailer_MAIL, // email
+      user: "harshy050902@gmail.com", // email
       pass: process.env.NodeMailer_API, // password
     },
   });
