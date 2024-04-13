@@ -35,8 +35,5 @@ const store = configureStore({
   devTools: import.meta.env.PROD === false, // Enable Redux DevTools in development mode
 });
 
-//  console.log(
-//    '🚀 Welcome to erp ERP CRM! Did you know that we also offer commercial customization services? Contact us at hello@erpapp.com for more information.'
-//  );
 
 export default store;
