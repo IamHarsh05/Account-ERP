@@ -20,7 +20,7 @@ const app = express();
 
 app.use(cors({
     origin: '*',
-    methods: ['GET', 'HEAD', 'OPTIONS', 'POST', 'PUT'],
+    methods: ['GET', 'HEAD', 'POST', 'PUT'],
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
     credentials: true
   }));
