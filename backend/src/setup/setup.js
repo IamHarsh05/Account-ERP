@@ -9,8 +9,8 @@ mongoose.connect(process.DATABASE);
 
 async function setupApp() {
   try {
-    const Admin = require('../models/coreModels/Admin');
-    const AdminPassword = require('../models/coreModels/AdminPassword');
+    const Admin = require('../models/appModels/coreModels/Admin');
+    const AdminPassword = require('../models/appModels/coreModels/AdminPassword');
     const newAdminPassword = new AdminPassword();
 
     const salt = uniqueId();
@@ -36,7 +36,7 @@ async function setupApp() {
 
     console.log('👍 Admin created : Done!');
 
-    const Setting = require('../models/coreModels/Setting');
+    const Setting = require('../models/appModels/coreModels/Setting');
 
     const settingFiles = [];
 
